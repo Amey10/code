@@ -1,0 +1,49 @@
+import java.util.*;
+import java.util.Set;
+import java.util.TreeSet;
+public class MyClass {
+    public int findInfectedBlk(int N,int startblk,int row,int cols,ArrayList safeblk)
+    {
+      //  Treeset<Integer> unorderlist = new TreeSet<Integer>(safeblk);
+        TreeSet<Integer> unorderlist = new TreeSet<Integer>(safeblk);
+        int len = unorderlist.size();
+        Integer[] orderarray = new Integer[len];
+        orderarray = unorderlist.toArray(orderarray);
+        int total_sum=0;
+        for(int i=0,j=0,k=cols-1;i<cols;i++)
+        {
+            int start = startblk + N *i;
+            
+            int end = start + cols -1;
+            if (len ==  k || orderarray[k] != end)  
+            {
+                int sum_till_start = (start * (start - 1)) / 2;
+                int sum_till_end = (end * (end + 1)) / 2;
+                 total_sum = sum_till_end - sum_till_start;
+                
+                for(int x = j ; x <= k-1 ; x++)
+                	total_sum -= orderarray[x];
+             //  System.out.println(total_sum);
+           
+            }
+            
+            j += cols;
+            k += cols;
+        }
+        return total_sum;
+        }
+    
+    public static void main(String args[]) {
+        ArrayList<Integer> safeblk = new ArrayList<Integer>();
+        safeblk.add(6);
+         safeblk.add(7);
+          safeblk.add(8);
+           safeblk.add(14);
+            safeblk.add(10);
+             safeblk.add(11);
+              safeblk.add(12);
+               safeblk.add(16);
+               MyClass m = new MyClass();
+    m.findInfectedBlk(4,6,3,3,safeblk);
+    }
+}
